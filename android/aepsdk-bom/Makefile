@@ -1,5 +1,5 @@
 clean:
-	  (./gradlew -p sdk-bom clean)
+	(./gradlew -p sdk-bom clean)
 
 # SDK size
 sdk-size:
