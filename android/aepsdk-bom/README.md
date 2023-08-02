@@ -4,7 +4,7 @@
 
 We have recently introduced BOM (Bill of Materials) artifacts in our Android SDKs to make it easier for our customers to manage SDK dependencies and ensure compatibility among extensions.
 
-The BOM artifact on [Maven Central](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom/) is available to use.
+The BOM artifact on [Maven Central](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom/) is available to use now.
 
 ## What is BOM
 
