@@ -44,7 +44,7 @@ jobs:
         with:
           token: ${{ github.token }}
           commit-message: Updating BOM to ${{ env.BOM_VERSION }}
-          branch: bom-${{ env.BOM_VERSION }}-update
+          branch: ci-bom-${{ env.BOM_VERSION }}-update
           delete-branch: true
           labels: |
             bom
