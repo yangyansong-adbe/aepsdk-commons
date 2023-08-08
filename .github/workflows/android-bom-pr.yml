@@ -5,7 +5,8 @@ name: BOM Update Dependencies
 on: 
    workflow_dispatch:
    schedule:
-     - cron: '50 20 * * *'
+     - cron: '00 00 * * 2,4'
+     # At 00:00 on Tuesday and Thursday
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
