@@ -61,7 +61,7 @@ jobs:
           assignees: |
             yangyansong-adbe
             praveek
-          title: [CI] updating BOM to ${{ env.BOM_VERSION }}
+          title: "[CI] updating BOM to ${{ env.BOM_VERSION }}"
           body: Updating BOM to ${{ env.BOM_VERSION }}
         env:
           bom_version_new:
