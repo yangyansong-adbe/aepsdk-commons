@@ -22,7 +22,7 @@ jobs:
 
       - name: Check existing PRs
         run: |
-          if gh pr list --repo https://github.com/yangyansong-adbe/aepsdk-commons --json title | grep '\[CI\] updating BOM to'; then
+          if gh pr list --repo https://github.com/adobe/aepsdk-commons --json title | grep '\[CI\] updating BOM to'; then
             gh run cancel ${{ github.run_id }}
             gh run watch ${{ github.run_id }}
           else
@@ -70,5 +70,3 @@ jobs:
             praveek
           title: "[CI] updating BOM to ${{ env.BOM_VERSION }}"
           body: Updating BOM to ${{ env.BOM_VERSION }}
-        env:
-          bom_version_new:
