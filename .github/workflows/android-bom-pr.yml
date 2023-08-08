@@ -16,13 +16,13 @@ jobs:
         with:
           ref: main
 
-      - name: PR check
+      - name: Check existing PRs
         run : |
-          if gh pr list --repo https://github.com/yangyansong-adbe/aepsdk-commons --json title | grep "[CI] updating BOM to "; then
+          if gh pr list --repo https://github.com/yangyansong-adbe/aepsdk-commons --json title | grep '\[CI\] updating BOM to'; then
             gh run cancel ${{ github.run_id }}
             gh run watch ${{ github.run_id }}
           else
-            echo "xxy"
+            echo "Not found existing PRs"
           fi
 
       - name: Set up Java
