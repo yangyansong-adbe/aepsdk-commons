@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '**/bom.properties'
+      - '*android/aepsdk-bom/sdk-bom/bom.properties'
 
 jobs:
   publish:
