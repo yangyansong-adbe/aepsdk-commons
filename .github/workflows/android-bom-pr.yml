@@ -2,12 +2,17 @@ name: BOM Update Dependencies
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
-on: workflow_dispatch
+on: 
+   workflow_dispatch:
+   schedule:
+     - cron: '00 00 * * 2,4'
+     # At 00:00 on Tuesday and Thursday
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   update-bom:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -16,11 +21,30 @@ jobs:
         with:
           ref: main
 
+      - name: Check existing PRs
+        run: |
+          if gh pr list --repo https://github.com/adobe/aepsdk-commons --json title | grep '\[CI\] updating BOM to'; then
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
+          else
+            echo "Not found existing PRs"
+          fi
+       
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Java
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
+      - name: Read bomVersion from gradle.properties
+        id: read_bomVersion_before
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: './android/aepsdk-bom/gradle.properties'
+          properties: 'bomVersion'
+          
       - name: Generate BOM release notes
         run: make -C android/aepsdk-bom generate-bom-release-notes
 
@@ -37,16 +61,43 @@ jobs:
         run: make -C android/aepsdk-bom generate-bom-pom
 
       - name: Print the new POM
-        run: make -C android/aepsdk-bom print-bom-pom
+        run: |
+         sudo apt-get install libxml2-utils
+         make -C android/aepsdk-bom print-bom-pom
+        continue-on-error: true
+        
+      - name: Read bomVersion from gradle.properties
+        id: read_bomVersion_after
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: './android/aepsdk-bom/gradle.properties'
+          properties: 'bomVersion'
 
+      - name: BOM versions
+        run: |
+          echo before: ${{ steps.read_bomVersion_before.outputs.bomVersion }}
+          echo after: ${{ steps.read_bomVersion_after.outputs.bomVersion }}
+        
+      - name: Check BOM version
+        if:  ${{ steps.read_bomVersion_before.outputs.bomVersion == steps.read_bomVersion_after.outputs.bomVersion }}
+        run: |
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
+
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4.2.3
         with:
           token: ${{ github.token }}
           commit-message: Updating BOM to ${{ env.BOM_VERSION }}
-          branch: bom-${{ env.BOM_VERSION }}-update
+          branch: ci-bom-${{ env.BOM_VERSION }}-update
           delete-branch: true
-          title: Updating BOM to ${{ env.BOM_VERSION }}
+          labels: |
+            bom
+            automated pr
+          assignees: |
+            yangyansong-adbe
+            praveek
+          title: "[CI] updating BOM to ${{ env.BOM_VERSION }}"
           body: Updating BOM to ${{ env.BOM_VERSION }}
-        env:
-          bom_version_new:
