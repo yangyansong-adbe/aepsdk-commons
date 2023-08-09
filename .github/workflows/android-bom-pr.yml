@@ -61,8 +61,8 @@ jobs:
         run: make -C android/aepsdk-bom generate-bom-pom
 
       - name: Print the new POM
-        if: success() || failure() 
         run: make -C android/aepsdk-bom print-bom-pom
+        continue-on-error: true
         
       - name: Read bomVersion from gradle.properties
         id: read_bomVersion_after
