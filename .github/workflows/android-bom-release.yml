@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - ./android/aepsdk-bom/sdk-bom/bom.properties
+      - './android/aepsdk-bom/sdk-bom/bom.properties'
 
 jobs:
   publish:
@@ -16,48 +16,3 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
-
-      - name: Import GPG key
-        env:
-          GPG_SECRET_KEYS: ${{ secrets.GPG_SECRET_KEYS }}
-          GPG_OWNERTRUST: ${{ secrets.GPG_OWNERTRUST }}
-        run: |
-          echo $GPG_SECRET_KEYS | base64 --decode | gpg --import --no-tty --batch --yes
-          echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust --no-tty --batch --yes
-
-      - name: Publish sdk-bom to maven central
-        run: make -C android/aepsdk-bom bom-publish-main
-        env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-
-      - name: Read bomVersion from gradle.properties
-        id: read_property
-        uses: christian-draeger/read-properties@1.1.1
-        with:
-          path: './android/aepsdk-bom/gradle.properties'
-          properties: 'bomVersion'
-
-      - name: BOM version
-        run: echo ${{ steps.read_property.outputs.bomVersion }}
-
-      - name: Create GH Release
-        id: create_release
-        uses: release-drafter/release-drafter@v5
-        with:
-          name: bom-${{ steps.read_property.outputs.bomVersion }}
-          tag: bom-${{ steps.read_property.outputs.bomVersion }}
-          version: bom-${{ steps.read_property.outputs.bomVersion }}
-          publish: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
