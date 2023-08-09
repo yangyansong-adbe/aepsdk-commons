@@ -38,6 +38,13 @@ jobs:
         with:
           java-version: 11
 
+      - name: Read bomVersion from gradle.properties
+        id: read_bomVersion_before
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: './android/aepsdk-bom/gradle.properties'
+          properties: 'bomVersion'
+          
       - name: Generate BOM release notes
         run: make -C android/aepsdk-bom generate-bom-release-notes
 
@@ -55,7 +62,27 @@ jobs:
 
       - name: Print the new POM
         run: make -C android/aepsdk-bom print-bom-pom
+        
+      - name: Read bomVersion from gradle.properties
+        id: read_bomVersion_after
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: './android/aepsdk-bom/gradle.properties'
+          properties: 'bomVersion'
 
+      - name: BOM versions
+        run: |
+          echo before: ${{ steps.read_bomVersion_before.outputs.bomVersion }}
+          echo after: ${{ steps.read_bomVersion_after.outputs.bomVersion }}
+        
+      - name: Check BOM version
+        if:  ${{ steps.read_bomVersion_before.outputs.bomVersion == steps.read_bomVersion_after.outputs.bomVersion }}
+        run: |
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
+
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4.2.3
         with:
