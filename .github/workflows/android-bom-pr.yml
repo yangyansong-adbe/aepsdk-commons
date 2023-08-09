@@ -61,7 +61,9 @@ jobs:
         run: make -C android/aepsdk-bom generate-bom-pom
 
       - name: Print the new POM
-        run: make -C android/aepsdk-bom print-bom-pom
+        run: |
+         sudo apt-get install libxml2-utils
+         make -C android/aepsdk-bom print-bom-pom
         continue-on-error: true
         
       - name: Read bomVersion from gradle.properties
