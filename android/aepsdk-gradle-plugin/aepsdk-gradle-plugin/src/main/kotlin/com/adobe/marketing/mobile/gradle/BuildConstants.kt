@@ -50,7 +50,7 @@ object BuildConstants {
         const val ANDROIDX_APPCOMPAT = "1.0.0"
         const val ANDROIDX_CORE_KTX = "1.3.2"
         const val DOKKA = "1.7.10"
-        const val SPOTLESS = "6.11.0"
+        const val SPOTLESS = "6.12.0"
         const val JUNIT = "4.13.2"
         const val MOCKITO = "4.5.1"
         const val COMMONS_CODEC = "1.15"
@@ -115,8 +115,10 @@ object BuildConstants {
     internal object Tasks {
         const val CHECKSTYLE = "checkstyle"
         const val JAVADOC_JAR = "javadocJar"
+        const val SOURCES_JAR = "sourcesJar"
         const val DOKKA_JAVADOC = "dokkaJavadoc"
         const val CREATE_PHONE_RELEASE_JAVADOC = "createPhoneReleaseJavadoc"
+        const val PHONE_RELEASE_SOURCES_JAR = "phoneReleaseSourcesJar"
         const val ASSEMBLE_PHONE = "assemblePhone"
         const val PUBLISH = "publish"
         const val PUBLISH_MAVEN_LOCAL = "publishToMavenLocal"
@@ -162,7 +164,9 @@ object BuildConstants {
   the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
   OF ANY KIND, either express or implied. See the License for the specific language
   governing permissions and limitations under the License.
-*/"""
+*/
+
+"""
     }
 
     internal object CheckStyle {

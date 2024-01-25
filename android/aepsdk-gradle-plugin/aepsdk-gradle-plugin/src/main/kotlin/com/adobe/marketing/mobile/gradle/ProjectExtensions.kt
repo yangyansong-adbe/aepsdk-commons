@@ -12,9 +12,7 @@
 package com.adobe.marketing.mobile.gradle
 
 import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
-import org.gradle.api.file.FileTree
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
@@ -62,6 +60,18 @@ internal val Project.javadocJar: TaskProvider<Jar>
             tasks.named<Jar>(BuildConstants.Tasks.JAVADOC_JAR)
         } else {
             tasks.register<Jar>(BuildConstants.Tasks.JAVADOC_JAR)
+        }
+    }
+
+/**
+ * Retrieves the Source Jar task for the project.
+ */
+internal val Project.sourcesJar: TaskProvider<Jar>
+    get() {
+        return if (tasks.findByName(BuildConstants.Tasks.SOURCES_JAR) != null) {
+            tasks.named<Jar>(BuildConstants.Tasks.SOURCES_JAR)
+        } else {
+            tasks.register<Jar>(BuildConstants.Tasks.SOURCES_JAR)
         }
     }
 

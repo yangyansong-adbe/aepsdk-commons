@@ -15,12 +15,12 @@ import com.android.build.gradle.LibraryExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.FileTree
 import org.gradle.api.plugins.quality.Checkstyle
 import org.gradle.api.plugins.quality.CheckstyleExtension
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.external.javadoc.JavadocMemberLevel
+import org.gradle.external.javadoc.StandardJavadocDocletOptions
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.named
@@ -157,13 +157,19 @@ class AEPLibraryPlugin : Plugin<Project> {
             publishing {
                 singleVariant(BuildConstants.BuildTypes.RELEASE) {
                     withSourcesJar()
-                    withJavadocJar()
                 }
             }
             testOptions {
                 unitTests.isReturnDefaultValues = true
                 unitTests.isIncludeAndroidResources = true
             }
+        }
+
+
+        //This task generates a JAR file containing source to be bundled with the AAR.
+        project.sourcesJar.configure {
+            archiveClassifier.set("sources")
+            from(project.tasks.named(BuildConstants.Tasks.PHONE_RELEASE_SOURCES_JAR))
         }
     }
 
@@ -182,15 +188,19 @@ class AEPLibraryPlugin : Plugin<Project> {
         val android = project.extensions.getByType(LibraryExtension::class.java)
         android.libraryVariants.forEach { variant ->
             project.tasks.register<Javadoc>("create${variant.name.capitalized()}Javadoc") {
-// Todo:- Fix javadoc generation
-//                source = variant.javaCompileProvider.get().source
-//                doFirst {
-//                    classpath =
-//                            project.files(variant.javaCompileProvider.get().classpath.files) + project.files(project.androidJarPath)
-//                }
-//                exclude(BuildConstants.Reporting.BUILD_CONFIG_CLASS, BuildConstants.Reporting.R_CLASS)
-                options {
+                dependsOn(variant.javaCompileProvider)
+                source = variant.javaCompileProvider.get().source
+                classpath = project.files(variant.javaCompileProvider.get().classpath.files) + project.files(project.androidJarPath)
+                exclude(BuildConstants.Reporting.BUILD_CONFIG_CLASS,
+                        BuildConstants.Reporting.R_CLASS,
+                        "**/internal/*"
+                        )
+
+                val options = options as StandardJavadocDocletOptions
+                options.apply {
                     memberLevel = JavadocMemberLevel.PUBLIC
+                    source = "8"
+                    links = listOf("https://developer.android.com/reference", "https://docs.oracle.com/javase/8/docs/api/")
                 }
             }
         }

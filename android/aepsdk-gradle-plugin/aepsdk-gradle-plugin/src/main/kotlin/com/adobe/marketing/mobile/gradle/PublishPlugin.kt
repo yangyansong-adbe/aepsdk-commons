@@ -46,6 +46,7 @@ class PublishPlugin : Plugin<Project> {
 
                     artifact(project.moduleAARPath)
                     artifact(project.javadocJar)
+                    artifact(project.sourcesJar)
 
                     pom {
                         name.set(publishingConfig.mavenRepoName.get())
