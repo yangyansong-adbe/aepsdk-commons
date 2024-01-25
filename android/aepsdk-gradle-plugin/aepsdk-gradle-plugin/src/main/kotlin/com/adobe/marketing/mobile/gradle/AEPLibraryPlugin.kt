@@ -191,9 +191,9 @@ class AEPLibraryPlugin : Plugin<Project> {
                 dependsOn(variant.javaCompileProvider)
                 source = variant.javaCompileProvider.get().source
                 classpath = project.files(variant.javaCompileProvider.get().classpath.files) + project.files(project.androidJarPath)
-                exclude(BuildConstants.Reporting.BUILD_CONFIG_CLASS,
-                        BuildConstants.Reporting.R_CLASS,
-                        "**/internal/*"
+                exclude(BuildConstants.Path.BUILD_CONFIG_CLASS,
+                        BuildConstants.Path.R_CLASS,
+                        BuildConstants.Path.INTERNAL_PACKAGES
                         )
 
                 val options = options as StandardJavadocDocletOptions
@@ -326,14 +326,14 @@ class AEPLibraryPlugin : Plugin<Project> {
 
         /** Checkstyle task for new files (not in exclude list). Fail build if a check fails **/
         project.tasks.register<Checkstyle>(BuildConstants.Tasks.CHECKSTYLE) {
-            source("src")
-            include("**/*.java")
-            exclude("**/gen/**")
-            exclude("**/test/**")
-            exclude("**/legacy/**")
-            exclude("**/androidTest/**")
-            exclude("**/R.java")
-            exclude("**/BuildConfig.java")
+            source(BuildConstants.Path.SRC)
+            include(BuildConstants.Path.JAVA_FILES)
+            exclude(BuildConstants.Path.GEN_FILES)
+            exclude(BuildConstants.Path.TEST_FILES)
+            exclude(BuildConstants.Path.LEGACY_FILES)
+            exclude(BuildConstants.Path.ANDROID_TEST_FILES)
+            exclude(BuildConstants.Path.R_CLASS)
+            exclude(BuildConstants.Path.BUILD_CONFIG_CLASS)
             classpath = project.files()
         }
     }

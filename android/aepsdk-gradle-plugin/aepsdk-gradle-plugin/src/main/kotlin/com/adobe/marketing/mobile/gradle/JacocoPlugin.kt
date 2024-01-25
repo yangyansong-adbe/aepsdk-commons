@@ -90,7 +90,7 @@ private fun JacocoReport.addSourceSets() {
     val debugTree = project.fileTree(
         mapOf(
             "dir" to project.intermediatePathForAEP,
-            "excludes" to listOf(BuildConstants.Reporting.ADB_CLASS, BuildConstants.Reporting.BUILD_CONFIG_CLASS)
+            "excludes" to listOf(BuildConstants.Path.ADB_CLASS, BuildConstants.Path.BUILD_CONFIG_CLASS)
         )
     )
     additionalClassDirs.setFrom(project.files(debugTree))

@@ -235,9 +235,6 @@ object BuildConstants {
             "outputs/unit_test_code_coverage/phoneDebugUnitTest/*.exec"
         const val FUNCTIONAL_TEST_EXECUTION_RESULTS_REGEX =
             "outputs/code_coverage/phoneDebugAndroidTest/connected/*coverage.ec"
-        const val BUILD_CONFIG_CLASS = "**/BuildConfig.java"
-        const val R_CLASS = "**/R.java"
-        const val ADB_CLASS = "**/ADB*.class"
     }
 
     object BuildTypes {
@@ -256,5 +253,19 @@ object BuildConstants {
 
     internal object BuildDimensions {
         const val TARGET = "target"
+    }
+
+    internal object Path {
+        const val BUILD_CONFIG_CLASS = "**/BuildConfig.java"
+        const val R_CLASS = "**/R.java"
+        const val ADB_CLASS = "**/ADB*.class"
+
+        const val INTERNAL_PACKAGES = "**/internal/*"
+        const val SRC = "src"
+        const val JAVA_FILES = "**/*.java"
+        const val GEN_FILES = "**/gen/**"
+        const val TEST_FILES = "**/test/**"
+        const val LEGACY_FILES = "**/legacy/**"
+        const val ANDROID_TEST_FILES = "**/androidTest/**"
     }
 }
