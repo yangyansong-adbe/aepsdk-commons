@@ -155,7 +155,9 @@ object BuildConstants {
                 "useTabs" to true,
                 "printWidth" to 120
         )
-        const val LICENSE_HEADER = """/*
+    }
+
+    const val ADOBE_LICENSE_HEADER = """/*
   Copyright ${'$'}YEAR Adobe. All rights reserved.
   This file is licensed to you under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License. You may obtain a copy
@@ -167,7 +169,6 @@ object BuildConstants {
 */
 
 """
-    }
 
     internal object CheckStyle {
         const val CONFIG = """<?xml version="1.0"?>
