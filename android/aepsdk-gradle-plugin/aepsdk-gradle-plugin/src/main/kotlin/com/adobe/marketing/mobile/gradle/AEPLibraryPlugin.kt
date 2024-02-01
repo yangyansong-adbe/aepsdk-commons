@@ -162,6 +162,9 @@ class AEPLibraryPlugin : Plugin<Project> {
             testOptions {
                 unitTests.isReturnDefaultValues = true
                 unitTests.isIncludeAndroidResources = true
+
+                animationsDisabled = false
+                targetSdk = BuildConstants.Versions.TARGET_SDK_VERSION
             }
         }
 
@@ -305,13 +308,13 @@ class AEPLibraryPlugin : Plugin<Project> {
                 removeUnusedImports()
                 endWithNewline()
                 formatAnnotations()
-                licenseHeader(BuildConstants.Formatting.LICENSE_HEADER)
+                licenseHeader(BuildConstants.ADOBE_LICENSE_HEADER)
             }
             kotlin {
                 target(BuildConstants.Formatting.KOTLIN_TARGETS)
                 ktlint(BuildConstants.Versions.KTLINT)
                 endWithNewline()
-                licenseHeader(BuildConstants.Formatting.LICENSE_HEADER)
+                licenseHeader(BuildConstants.ADOBE_LICENSE_HEADER)
             }
         }
     }
