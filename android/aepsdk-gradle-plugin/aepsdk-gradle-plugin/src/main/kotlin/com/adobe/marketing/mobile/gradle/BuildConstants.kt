@@ -109,6 +109,7 @@ object BuildConstants {
         const val CHECKSTYLE = "checkstyle"
         const val MAVEN_PUBLISH = "maven-publish"
         const val SIGNING = "signing"
+        const val HIERYNOMUS_LICESNE = "com.github.hierynomus.license"
     }
 
 
@@ -129,6 +130,9 @@ object BuildConstants {
         const val CREATE_PHONE_DEBUG_COVERAGE_REPORT = "createPhoneDebugCoverageReport"
         const val UNIT_TEST_COVERAGE_REPORT = "unitTestCoverageReport"
         const val TEST_PHONE_DEBUG_UNIT_TEST = "testPhoneDebugUnitTest"
+
+        const val LICENSE_FORMAT_PROJECT = "licenseFormatProject"
+        const val LICENSE_FORMAT = "licenseFormat"
     }
 
     internal object ProjectConfig {
@@ -170,6 +174,16 @@ object BuildConstants {
 
 """
 
+    const val ADOBE_LICENSE_HEADER_RESOURCES = """Copyright ${'$'}{year} Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+"""
     internal object CheckStyle {
         const val CONFIG = """<?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
@@ -264,9 +278,20 @@ object BuildConstants {
         const val INTERNAL_PACKAGES = "**/internal/*"
         const val SRC = "src"
         const val JAVA_FILES = "**/*.java"
+        const val KOTLIN_FILES = "**/*.kt"
         const val GEN_FILES = "**/gen/**"
         const val TEST_FILES = "**/test/**"
         const val LEGACY_FILES = "**/legacy/**"
         const val ANDROID_TEST_FILES = "**/androidTest/**"
+        const val PROPERTY_FILES = "**/*.properties"
+        const val LOCAL_PROPERTY_FILES = "**/local.properties"
+        const val XML_FILES = "**/*.xml"
+        const val YML_FILES = "**/*.yml"
+        const val GRADLE_KOTLIN_FILES = "**/*.gradle.kts"
+        const val IDEA_DIR = "**/.idea/*"
+        const val GIT_DIR = "**/.git/*"
+        const val GRADLE_DIR = "**/.gradle/*"
+        const val GRADLE_WRAPPER_DIR = "**/gradle/wrapper/*"
+        const val BUILD_DIR = "**/build/*"
     }
 }

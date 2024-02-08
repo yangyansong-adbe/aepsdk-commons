@@ -167,13 +167,6 @@ class AEPLibraryPlugin : Plugin<Project> {
                 targetSdk = BuildConstants.Versions.TARGET_SDK_VERSION
             }
         }
-
-
-        //This task generates a JAR file containing source to be bundled with the AAR.
-        project.sourcesJar.configure {
-            archiveClassifier.set("sources")
-            from(project.tasks.named(BuildConstants.Tasks.PHONE_RELEASE_SOURCES_JAR))
-        }
     }
 
     private fun configureKotlin(project: Project) {
