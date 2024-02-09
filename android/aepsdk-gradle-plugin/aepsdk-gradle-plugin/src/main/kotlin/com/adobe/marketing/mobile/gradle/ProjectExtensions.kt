@@ -13,6 +13,7 @@ package com.adobe.marketing.mobile.gradle
 
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
@@ -66,13 +67,9 @@ internal val Project.javadocJar: TaskProvider<Jar>
 /**
  * Retrieves the Source Jar task for the project.
  */
-internal val Project.sourcesJar: TaskProvider<Jar>
+internal val Project.sourcesJar: Task?
     get() {
-        return if (tasks.findByName(BuildConstants.Tasks.SOURCES_JAR) != null) {
-            tasks.named<Jar>(BuildConstants.Tasks.SOURCES_JAR)
-        } else {
-            tasks.register<Jar>(BuildConstants.Tasks.SOURCES_JAR)
-        }
+        return project.tasks[BuildConstants.Tasks.PHONE_RELEASE_SOURCES_JAR]
     }
 
 /**

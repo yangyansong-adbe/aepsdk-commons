@@ -5,7 +5,8 @@ object Plugins {
     const val ANDROID_GRADLE_PLUGIN_VERSION = "8.2.0"
     const val KOTLIN_GRADLE_PLUGIN_VERSION = "1.8.20"
     const val SPOTLESS_GRADLE_PLUGIN_VERSION = "6.12.0"
-    const val DOKKA_GRADLE_PLUGIN_VERSION = "1.7.10"
+    const val DOKKA_GRADLE_PLUGIN_VERSION = "1.9.10"
+    const val LICENSE_GRADLE_PLUGIN_VERSION = "0.16.1"
 }
 
 plugins {
@@ -19,6 +20,9 @@ repositories {
     gradlePluginPortal()
     google()
     mavenCentral()
+    maven {
+        url = uri("https://plugins.gradle.org/m2/")
+    }
 }
 
 dependencies {
@@ -26,6 +30,7 @@ dependencies {
     implementation("com.diffplug.spotless:spotless-plugin-gradle:${Plugins.SPOTLESS_GRADLE_PLUGIN_VERSION}")
     implementation("com.android.tools.build:gradle:${Plugins.ANDROID_GRADLE_PLUGIN_VERSION}")
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:${Plugins.DOKKA_GRADLE_PLUGIN_VERSION}")
+    implementation("gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:${Plugins.LICENSE_GRADLE_PLUGIN_VERSION}")
 }
 
 gradlePlugin {
@@ -33,6 +38,10 @@ gradlePlugin {
         register("AEPLibraryPlugin") {
             id = "aep-library"
             implementationClass = "com.adobe.marketing.mobile.gradle.AEPLibraryPlugin"
+        }
+        register("AEPLicensePlugin") {
+            id = "aep-license"
+            implementationClass = "com.adobe.marketing.mobile.gradle.AEPLicensePlugin"
         }
     }
 }
