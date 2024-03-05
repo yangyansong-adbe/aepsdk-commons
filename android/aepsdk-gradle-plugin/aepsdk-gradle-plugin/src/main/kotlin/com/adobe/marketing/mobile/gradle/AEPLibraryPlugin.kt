@@ -212,6 +212,7 @@ class AEPLibraryPlugin : Plugin<Project> {
         val dokkaJavadoc = project.tasks.named<DokkaTask>(BuildConstants.Tasks.DOKKA_JAVADOC)
         dokkaJavadoc.configure {
             dokkaSourceSets.named(BuildConstants.SourceSets.MAIN) {
+                jdkVersion.set(8)
                 noAndroidSdkLink.set(false)
                 perPackageOption {
                     matchingRegex.set(".*\\.internal.*") // proper setting
@@ -220,6 +221,8 @@ class AEPLibraryPlugin : Plugin<Project> {
             }
 
             dokkaSourceSets.named(BuildConstants.SourceSets.PHONE) {
+                dependsOn(BuildConstants.SourceSets.MAIN)
+                jdkVersion.set(8)
                 noAndroidSdkLink.set(false)
                 perPackageOption {
                     matchingRegex.set(".*\\.internal.*") // proper setting
