@@ -49,7 +49,8 @@ object BuildConstants {
 
         const val ANDROIDX_APPCOMPAT = "1.0.0"
         const val ANDROIDX_CORE_KTX = "1.3.2"
-        const val DOKKA = "1.7.10"
+        const val ANDROIDX_LIFECYCLE_KTX = "2.3.1"
+        const val DOKKA = "1.9.10"
         const val SPOTLESS = "6.12.0"
         const val JUNIT = "4.13.2"
         const val MOCKITO = "4.5.1"
@@ -69,6 +70,7 @@ object BuildConstants {
         const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:${Versions.ANDROIDX_APPCOMPAT}"
         const val KOTLIN_STDLIB_JDK8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.KOTLIN}"
         const val ANDROIDX_CORE_KTX = "androidx.core:core-ktx:${Versions.ANDROIDX_CORE_KTX}"
+        const val ANDROIDX_LIFECYCLE_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ANDROIDX_LIFECYCLE_KTX}"
 
         // Test Dependencies
         const val JUNIT = "junit:junit:${Versions.JUNIT}"
@@ -140,7 +142,7 @@ object BuildConstants {
         const val DEBUG_IMPLEMENTATION = "debugImplementation"
         const val TEST_IMPLEMENTATION = "testImplementation"
         const val ANDROID_TEST_IMPLEMENTATION = "androidTestImplementation"
-        const val DOKKA = "dokkaGfmPlugin"
+        const val DOKKA = "dokkaPlugin"
     }
 
     internal object Formatting {
