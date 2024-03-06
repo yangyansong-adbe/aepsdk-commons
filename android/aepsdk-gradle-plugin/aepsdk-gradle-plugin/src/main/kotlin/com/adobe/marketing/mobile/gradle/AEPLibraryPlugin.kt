@@ -52,8 +52,12 @@ class AEPLibraryPlugin : Plugin<Project> {
         // Apply necessary plugins for this project.
         project.plugins.apply(BuildConstants.Plugins.ANDROID_LIBRARY)
         project.plugins.apply(BuildConstants.Plugins.KOTLIN_ANDROID)
-        project.plugins.apply(JacocoPlugin::class.java)
-        project.plugins.apply(PublishPlugin::class.java)
+
+        // Don't configure these plugins for validation tasks.
+        if (!shouldConfigureForAPIValidationTask(project)) {
+            project.plugins.apply(JacocoPlugin::class.java)
+            project.plugins.apply(PublishPlugin::class.java)
+        }
 
         // The Android library is set up when you apply this plugin.
         // If necessary, you can customize it in your project's build.gradle file.
