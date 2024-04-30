@@ -1,4 +1,4 @@
-name: BOM Release Snapshot
+name: BOM 2.x Release Snapshot
 on: workflow_dispatch
 
 jobs:

@@ -1,4 +1,4 @@
-name: BOM Release
+name: BOM 2.x Release
 on:
   workflow_dispatch:
 
