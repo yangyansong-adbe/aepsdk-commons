@@ -32,26 +32,126 @@ configurations.all {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.adobe.marketing.mobile:core:latest.release'
-    implementation 'com.adobe.marketing.mobile:lifecycle:latest.release'
-    implementation 'com.adobe.marketing.mobile:identity:latest.release'
-    implementation 'com.adobe.marketing.mobile:signal:latest.release'
-    implementation 'com.adobe.marketing.mobile:userprofile:latest.release'
-    implementation 'com.adobe.marketing.mobile:assurance:latest.release'
-    implementation 'com.adobe.marketing.mobile:edge:latest.release'
-    implementation 'com.adobe.marketing.mobile:edgeidentity:latest.release'
-    implementation 'com.adobe.marketing.mobile:edgeconsent:latest.release'
-    implementation 'com.adobe.marketing.mobile:edgebridge:latest.release'
-    implementation 'com.adobe.marketing.mobile:edgemedia:latest.release'
-    implementation 'com.adobe.marketing.mobile:messaging:latest.release'
-    implementation 'com.adobe.marketing.mobile:optimize:latest.release'
-    implementation 'com.adobe.marketing.mobile:places:latest.release'
-    implementation 'com.adobe.marketing.mobile:analytics:latest.release'
-    implementation 'com.adobe.marketing.mobile:media:latest.release'
-    implementation 'com.adobe.marketing.mobile:target:latest.release'
-    implementation 'com.adobe.marketing.mobile:campaign:latest.release'
-    implementation 'com.adobe.marketing.mobile:campaignclassic:latest.release'
-    implementation 'com.adobe.marketing.mobile:audience:latest.release'
+    implementation('com.adobe.marketing.mobile:core') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:lifecycle') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:identity') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:signal') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:userprofile') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:assurance') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:edge') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:edgeidentity') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:edgeconsent') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:edgebridge') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:edgemedia') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:messaging') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:optimize') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:places') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:analytics') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:media') {
+        version {
+            strictly '[3.0.0, 3.1.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:target') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:campaign') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:campaignclassic') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
+    implementation('com.adobe.marketing.mobile:audience') {
+        version {
+            strictly '[2.0.0, 3.0.0['
+            // require 'latest.release'
+        }
+    }
 }
 
 configurations.implementation.canBeResolved = true

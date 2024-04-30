@@ -1,6 +1,15 @@
 clean:
 	(./gradlew -p sdk-bom clean)
 
+# BOM 2.x release workflow:
+
+# 1. Run the CI job to pdate the BOM artifact:
+# gh workflow run android-bom-pr.yml --ref main-v2 -R adobe/aepsdk-commons
+
+# 2. Run the CI job to publish the BOM artifact:
+# gh workflow run android-bom-publish.yml --ref main-v2 -R adobe/aepsdk-commons
+
+
 # SDK size
 sdk-size:
 	(./gradlew -p sdk-bom computeSdkSize)
