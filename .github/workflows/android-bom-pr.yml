@@ -2,12 +2,8 @@ name: BOM Update Dependencies
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
-on: 
-   workflow_dispatch:
-   schedule:
-     - cron: '00 00 * * 2,4'
-     # At 00:00 on Tuesday and Thursday
-
+on:
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
         with:
-          ref: main
+          ref: main-v2
 
       - name: Check existing PRs
         run: |
@@ -29,7 +25,7 @@ jobs:
           else
             echo "Not found existing PRs"
           fi
-       
+
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,9 +38,9 @@ jobs:
         id: read_bomVersion_before
         uses: christian-draeger/read-properties@1.1.1
         with:
-          path: './android/aepsdk-bom/gradle.properties'
-          properties: 'bomVersion'
-          
+          path: "./android/aepsdk-bom/gradle.properties"
+          properties: "bomVersion"
+
       - name: Generate BOM release notes
         run: make -C android/aepsdk-bom generate-bom-release-notes
 
@@ -62,27 +58,27 @@ jobs:
 
       - name: Print the new POM
         run: |
-         sudo apt-get install libxml2-utils
-         make -C android/aepsdk-bom print-bom-pom
+          sudo apt-get install libxml2-utils
+          make -C android/aepsdk-bom print-bom-pom
         continue-on-error: true
-        
+
       - name: Read bomVersion from gradle.properties
         id: read_bomVersion_after
         uses: christian-draeger/read-properties@1.1.1
         with:
-          path: './android/aepsdk-bom/gradle.properties'
-          properties: 'bomVersion'
+          path: "./android/aepsdk-bom/gradle.properties"
+          properties: "bomVersion"
 
       - name: BOM versions
         run: |
           echo before: ${{ steps.read_bomVersion_before.outputs.bomVersion }}
           echo after: ${{ steps.read_bomVersion_after.outputs.bomVersion }}
-        
+
       - name: Check BOM version
-        if:  ${{ steps.read_bomVersion_before.outputs.bomVersion == steps.read_bomVersion_after.outputs.bomVersion }}
+        if: ${{ steps.read_bomVersion_before.outputs.bomVersion == steps.read_bomVersion_after.outputs.bomVersion }}
         run: |
-            gh run cancel ${{ github.run_id }}
-            gh run watch ${{ github.run_id }}
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

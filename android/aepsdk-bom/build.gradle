@@ -23,11 +23,19 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        google()
+    if (version.endsWith('SNAPSHOT')){
+        repositories {
+            mavenCentral()
+            maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+            google()
+        }
+    }else {
+        repositories {
+            mavenCentral()
+            google()
+        }
     }
+
     apply plugin: 'maven-publish'
     if (project.hasProperty("sonatypeUser") && project.hasProperty("sonatypePass")) {
         ext["ossrhUsername"] = "$sonatypeUser"

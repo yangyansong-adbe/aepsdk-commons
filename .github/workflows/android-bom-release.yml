@@ -1,17 +1,15 @@
-name: BOM Release  
-on: 
+name: BOM Release
+on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '*android/aepsdk-bom/sdk-bom/bom.properties'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: main-v2
+
       - name: Set up Java
         uses: actions/setup-java@v1
         with:
@@ -44,8 +42,8 @@ jobs:
         id: read_property
         uses: christian-draeger/read-properties@1.1.1
         with:
-          path: './android/aepsdk-bom/gradle.properties'
-          properties: 'bomVersion'
+          path: "./android/aepsdk-bom/gradle.properties"
+          properties: "bomVersion"
 
       - name: BOM version
         run: echo ${{ steps.read_property.outputs.bomVersion }}
@@ -60,7 +58,7 @@ jobs:
           publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Update Release page
         run: |
           gh release edit bom-${{ steps.read_property.outputs.bomVersion }} --repo adobe/aepsdk-commons --notes-file ./android/aepsdk-bom/sdk-bom/bom-release-notes.md
