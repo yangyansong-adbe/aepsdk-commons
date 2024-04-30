@@ -1,12 +1,9 @@
-name: BOM Update Dependencies
+name: BOM 2.x Update Dependencies
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "00 00 * * 2,4"
-    # At 00:00 on Tuesday and Thursday
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
         with:
-          ref: main
+          ref: main-v2
 
       - name: Check existing PRs
         run: |
